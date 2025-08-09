@@ -15,3 +15,4 @@ class ActivityModule(private val activity: AppCompatActivity) {
     fun provideContext(): Context = this.activity
 
 }
+

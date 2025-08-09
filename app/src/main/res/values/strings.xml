@@ -5,4 +5,9 @@
     <string name="expense_report">Expense Report</string>
     <string name="expense_details">Expense Details</string>
     <string name="add_expense">Add Expense</string>
+    <string name="amount">Amount</string>
+    <string name="title">Title</string>
+    <string name="optional_notes">Optional Notes</string>
+    <string name="choose_from_gallery">Choose From Gallery</string>
+    <string name="submit">Submit</string>
 </resources>
