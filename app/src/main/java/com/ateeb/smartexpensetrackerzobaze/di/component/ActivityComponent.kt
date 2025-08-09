@@ -1,6 +1,6 @@
 package com.ateeb.smartexpensetrackerzobaze.di.component
 
-import com.ateeb.smartexpensetrackerzobaze.MainActivity
+import com.ateeb.smartexpensetrackerzobaze.ui.MainActivity
 import com.ateeb.smartexpensetrackerzobaze.di.ActivityScope
 import com.ateeb.smartexpensetrackerzobaze.di.module.ActivityModule
 import dagger.Component
