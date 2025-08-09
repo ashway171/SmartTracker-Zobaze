@@ -10,4 +10,8 @@
     <string name="optional_notes">Optional Notes</string>
     <string name="choose_from_gallery">Choose From Gallery</string>
     <string name="submit">Submit</string>
+    <string name="title_required">Title Required</string>
+    <string name="amount_required">Amount Required</string>
+    <string name="amount_validate_ask">Enter a valid amount</string>
+    <string name="category_select_ask">Select a valid category</string>
 </resources>
