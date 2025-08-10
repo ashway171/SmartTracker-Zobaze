@@ -62,6 +62,4 @@ SmartTracker is a lightweight app designed to support small business owners in d
 
 5. Extensive validation checks when entering an expense.
 
-6. 
-
 ---
