@@ -14,4 +14,10 @@
     <string name="amount_required">Amount Required</string>
     <string name="amount_validate_ask">Enter a valid amount</string>
     <string name="category_select_ask">Select a valid category</string>
+    <string name="select_date">Select Date</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="total_items">Total Items</string>
+    <string name="receipt_available">Receipt Available</string>
+    <string name="expense_title">Expense Title</string>
+    <string name="selected_image">Selected Image</string>
 </resources>

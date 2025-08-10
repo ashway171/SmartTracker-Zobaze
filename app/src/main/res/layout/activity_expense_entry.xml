@@ -193,13 +193,13 @@
                     android:padding="14dp">
 
                     <ImageView
-                        android:id="@+id/campaign_face_iv"
+                        android:id="@+id/expense_receipt_iv"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginBottom="8dp"
                         android:adjustViewBounds="true"
                         android:background="@drawable/dotted_bg"
-                        android:contentDescription="Selected Image"
+                        android:contentDescription="@string/selected_image"
                         android:scaleType="centerCrop" />
 
                     <!-- Gallery Button -->
@@ -222,7 +222,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="6dp"
                                 android:text="@string/choose_from_gallery"
-                                android:textColor="@color/themeColor"
+                                android:textColor="?attr/colorPrimary"
                                 android:textSize="13sp" />
 
                             <ImageView
@@ -243,7 +243,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:backgroundTint="@color/themeColor"
+                android:backgroundTint="?attr/colorPrimary"
                 android:text="@string/submit"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
@@ -253,13 +253,9 @@
         </LinearLayout>
     </ScrollView>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminateTint="@color/themeColor"
-        android:visibility="visible"
+    <include
+        android:id="@+id/progressBarParent"
+        layout="@layout/layout_progress_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

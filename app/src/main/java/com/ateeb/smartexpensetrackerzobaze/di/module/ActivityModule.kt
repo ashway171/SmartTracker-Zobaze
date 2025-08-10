@@ -2,8 +2,10 @@ package com.ateeb.smartexpensetrackerzobaze.di.module
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.ateeb.smartexpensetrackerzobaze.di.ActivityContext
 import com.ateeb.smartexpensetrackerzobaze.domain.usecase.SaveExpenseUseCase
+import com.ateeb.smartexpensetrackerzobaze.ui.base.ViewModelProviderFactory
 import com.ateeb.smartexpensetrackerzobaze.ui.expense_entry.SaveExpenseViewModel
 import dagger.Module
 import dagger.Provides
@@ -19,7 +21,12 @@ class ActivityModule(private val activity: AppCompatActivity) {
     fun provideSaveExpenseViewModel(
         saveExpenseUseCase: SaveExpenseUseCase
     ): SaveExpenseViewModel {
-        return SaveExpenseViewModel(saveExpenseUseCase)
+        return ViewModelProvider(
+            activity,
+            ViewModelProviderFactory(SaveExpenseViewModel::class) {
+                SaveExpenseViewModel(saveExpenseUseCase)
+            }
+        )[SaveExpenseViewModel::class.java]
     }
 
 }

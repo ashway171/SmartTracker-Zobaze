@@ -69,10 +69,11 @@ class ExpenseEntryActivity : AppCompatActivity() {
     private fun setupCategorySpinner() {
         // Can be dealt via a viewmodel for further extension
         // Use predefined list of categories from CategoryConstants object for now
+        val spinnerItems = listOf("Select Category") + CategoryConstants.CATEGORY_LIST
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
-            CategoryConstants.CATEGORY_LIST
+            spinnerItems
         ).apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
@@ -86,7 +87,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
                     position: Int,
                     id: Long
                 ) {
-                    val selectedCategory = CategoryConstants.CATEGORY_LIST[position]
+                    val selectedCategory = spinnerItems[position]
                     // Handle the selected category
                 }
 
@@ -132,7 +133,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
                         photoUri = uri
                         Glide.with(this)
                             .load(uri)
-                            .into(binding.campaignFaceIv)
+                            .into(binding.expenseReceiptIv)
                     } ?: run {
                         Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show()
                     }
@@ -218,7 +219,8 @@ class ExpenseEntryActivity : AppCompatActivity() {
         binding.notesEt.text?.clear()
         binding.categorySpinner.setSelection(0)
         photoUri = null
-
+        // Clear the ImageView
+        binding.expenseReceiptIv.setImageDrawable(null)
         //reset focus to title for convenience
         binding.titleEt.requestFocus()
     }
@@ -235,6 +237,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
                 imageUri = photoUri?.toString(),
                 date = Date()
             )
+            Log.d(TAG, photoUri.toString())
 
             // Trigger save operation in ViewModel
             saveExpenseViewModel.saveExpense(expense)
@@ -247,12 +250,12 @@ class ExpenseEntryActivity : AppCompatActivity() {
             saveExpenseViewModel.saveExpenseState.collect { state ->
                 when (state) {
                     is UiState.Loading -> {
-                        binding.progressBar.visibility = View.VISIBLE
+                        binding.progressBarParent.progressBar.visibility = View.VISIBLE
                         binding.submitBtn.isEnabled = false
                     }
 
                     is UiState.Success -> {
-                        binding.progressBar.visibility = View.GONE
+                        binding.progressBarParent.progressBar.visibility = View.GONE
                         Toast.makeText(
                             this@ExpenseEntryActivity,
                             "Expense saved!",
@@ -263,7 +266,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
                     }
 
                     is UiState.Error -> {
-                        binding.progressBar.visibility = View.GONE
+                        binding.progressBarParent.progressBar.visibility = View.GONE
                         binding.submitBtn.isEnabled = true
                         Log.d(TAG, "Error: ${state.message}")
                         Toast.makeText(
@@ -274,7 +277,7 @@ class ExpenseEntryActivity : AppCompatActivity() {
                     }
 
                     is UiState.Idle -> {
-                        binding.progressBar.visibility = View.GONE
+                        binding.progressBarParent.progressBar.visibility = View.GONE
                         binding.submitBtn.isEnabled = true
                     }
 

@@ -4,4 +4,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="themeColor">#3F51B5</color>
 
+    <!-- Category colors -->
+    <color name="category_background_color">#F5F5F5</color>
+    <color name="category_text_color">#424242</color>
+    <color name="category_border_color">#E0E0E0</color>
+    <color name="category_selected_background">#E3F2FD</color>
+    <color name="category_selected_text">#1976D2</color>
+
 </resources>

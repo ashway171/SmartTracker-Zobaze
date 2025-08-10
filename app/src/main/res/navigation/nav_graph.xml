@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/expenseReportFragment"
-        android:name="com.ateeb.smartexpensetrackerzobaze.ui.expense_report.ExpenseReportFragment"
+        android:name="com.ateeb.smartexpensetrackerzobaze.ui.expense_list.expense_report.ExpenseReportFragment"
         android:label="Expense Report"
         tools:layout="@layout/fragment_expense_report" />
 

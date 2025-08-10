@@ -1,4 +1,4 @@
-package com.ateeb.smartexpensetrackerzobaze.ui.expense_report
+package com.ateeb.smartexpensetrackerzobaze.ui.expense_list.expense_report
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
