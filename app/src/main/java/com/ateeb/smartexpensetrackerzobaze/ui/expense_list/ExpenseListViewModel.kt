@@ -24,6 +24,8 @@ class ExpenseListViewModel @Inject constructor(
     private val getExpensesByCategoryAndDateUseCase: GetExpensesByCategoryAndDateUseCase
 ) : ViewModel() {
 
+    var selectedCategory: String = "All"
+
     private val _expenses = MutableStateFlow<UiState<List<Expense>>>(UiState.Idle)
     val expenses: StateFlow<UiState<List<Expense>>> = _expenses.asStateFlow()
 

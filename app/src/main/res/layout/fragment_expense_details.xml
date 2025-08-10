@@ -6,7 +6,7 @@
     android:id="@+id/expenseDetailsRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="16dp"
+    android:paddingHorizontal="10dp"
     android:paddingTop="24dp"
     android:paddingBottom="16dp">
 
@@ -125,7 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingHorizontal="16dp"
+            android:paddingHorizontal="2dp"
             android:paddingVertical="8dp" />
 
     </HorizontalScrollView>
@@ -137,7 +137,7 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:paddingBottom="4dp"
         tools:listitem="@layout/expense_list_rv_item"
         app:layout_constraintTop_toBottomOf="@id/categoriesScrollView"
         app:layout_constraintBottom_toTopOf="@id/emptyStateContainer"

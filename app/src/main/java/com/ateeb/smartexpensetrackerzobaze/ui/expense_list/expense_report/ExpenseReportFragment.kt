@@ -13,8 +13,8 @@ import com.ateeb.smartexpensetrackerzobaze.domain.model.Expense
 import com.ateeb.smartexpensetrackerzobaze.ui.charts.BarChartRenderer
 import com.ateeb.smartexpensetrackerzobaze.ui.charts.ExpenseDataAggregator
 import com.ateeb.smartexpensetrackerzobaze.utils.CategoryConstants
-import com.ateeb.smartexpensetrackerzobaze.utils.ExpenseConstants
-import com.ateeb.smartexpensetrackerzobaze.utils.ExpenseConstants.getMockExpenseData
+import com.ateeb.smartexpensetrackerzobaze.utils.ExpenseUtils
+import com.ateeb.smartexpensetrackerzobaze.utils.ExpenseUtils.getMockExpenseData
 import com.github.mikephil.charting.charts.BarChart
 
 class ExpenseReportFragment : Fragment() {
@@ -54,7 +54,7 @@ class ExpenseReportFragment : Fragment() {
 
         setupCategoriesRVAdapter()
         categoriesList =
-            CategoryConstants.calculateCategoryTotals(ExpenseConstants.getMockExpenseData())
+            CategoryConstants.calculateCategoryTotals(ExpenseUtils.getMockExpenseData())
                 .toMutableList()
 
         categoriesAdapter.updateList(categoriesList)

@@ -22,7 +22,9 @@ import com.ateeb.smartexpensetrackerzobaze.di.component.DaggerActivityComponent
 import com.ateeb.smartexpensetrackerzobaze.di.module.ActivityModule
 import com.ateeb.smartexpensetrackerzobaze.domain.model.Expense
 import com.ateeb.smartexpensetrackerzobaze.ui.base.UiState
+import com.ateeb.smartexpensetrackerzobaze.ui.expense_list.ExpenseListViewModel
 import com.ateeb.smartexpensetrackerzobaze.utils.CategoryConstants
+import com.ateeb.smartexpensetrackerzobaze.utils.ExpenseUtils
 import com.ateeb.smartexpensetrackerzobaze.utils.permissions.PermissionManager
 import com.ateeb.smartexpensetrackerzobaze.utils.permissions.PermissionType
 import com.bumptech.glide.Glide
@@ -43,6 +45,8 @@ class ExpenseEntryActivity : AppCompatActivity() {
 
     @Inject
     lateinit var saveExpenseViewModel: SaveExpenseViewModel
+    @Inject
+    lateinit var expenseListViewModel: ExpenseListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +54,9 @@ class ExpenseEntryActivity : AppCompatActivity() {
         injectDependencies()
         binding = ActivityExpenseEntryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Show total amount spent today
+        binding.tvTotalSpentAmount.text = ExpenseUtils.TOTAL_AMOUNT_TODAY.toString()
 
         setupCategorySpinner()
 
@@ -261,6 +268,16 @@ class ExpenseEntryActivity : AppCompatActivity() {
                             "Expense saved!",
                             Toast.LENGTH_SHORT
                         ).show()
+                        // Parse amount from input
+                        val amountStr = binding.amountEt.text.toString().trim()
+                        val amount = amountStr.toDoubleOrNull() ?: 0.0
+
+                        // Update total amount today
+                        ExpenseUtils.TOTAL_AMOUNT_TODAY += amount
+
+                        // Update the TextView showing today's total amount
+                        binding.tvTotalSpentAmount.text = "₹${"%.2f".format(ExpenseUtils.TOTAL_AMOUNT_TODAY)}"
+
                         resetForm() // to facilitate a new entry
                         binding.submitBtn.isEnabled = true
                     }

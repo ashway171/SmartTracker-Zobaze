@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -24,7 +25,7 @@ import com.ateeb.smartexpensetrackerzobaze.di.module.FragmentModule
 import com.ateeb.smartexpensetrackerzobaze.ui.base.UiState
 import com.ateeb.smartexpensetrackerzobaze.utils.CategoryConstants
 import com.ateeb.smartexpensetrackerzobaze.utils.DateUtils
-import com.ateeb.smartexpensetrackerzobaze.utils.ExpenseConstants
+import com.ateeb.smartexpensetrackerzobaze.utils.ExpenseUtils
 import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
@@ -72,6 +73,7 @@ class ExpenseDetailsFragment : Fragment() {
         categoriesContainer = binding.categoriesContainer
 
         displayCategories(displayCategories)
+        highlightCategory(expenseListViewModel.selectedCategory)
         setupDatePicker()
         setupRecyclerView()
         setupExpenseListObserver()
@@ -105,8 +107,18 @@ class ExpenseDetailsFragment : Fragment() {
             selectedDate = calendar.time              // <-- update selectedDate here
             binding.currentDateText.text = dateFormat.format(selectedDate)
 
+            // Select "All" category when date changes
+            val allCategoryView = categoriesContainer.children
+                .filterIsInstance<TextView>()
+                .firstOrNull { it.text.toString() == "All" }
+
+            allCategoryView?.let {
+                onCategorySelected(it, "All")
+            }
+
             val (startDate, endDate) = DateUtils.getStartAndEndDatesFor(selectedDate)
             expenseListViewModel.loadExpensesByDate(startDate, endDate)
+
         }
 
         val openDatePicker = {
@@ -135,6 +147,15 @@ class ExpenseDetailsFragment : Fragment() {
         categories.forEach { category ->
             addCategoryView(category)
         }
+
+        // Select "All" category view programmatically after adding all views
+        val allCategoryView = categoriesContainer.children
+            .filterIsInstance<TextView>()
+            .firstOrNull { it.text.toString() == "All" }
+
+        allCategoryView?.let {
+            onCategorySelected(it, "All")
+        }
     }
 
     private fun addCategoryView(categoryName: String) {
@@ -161,9 +182,28 @@ class ExpenseDetailsFragment : Fragment() {
         selectedCategoryView = selectedView
         lastSelectedCategory = categoryName
 
+        // Update ViewModel with current selection
+        expenseListViewModel.selectedCategory = categoryName
+
         val (start, end) = DateUtils.getStartAndEndDatesFor(selectedDate)
         if (categoryName == "All") expenseListViewModel.loadExpensesByDate(start, end)
         else expenseListViewModel.loadExpensesByDateAndCategory(start, end, categoryName)
+    }
+
+    private fun onCategoryClicked(category: String) {
+        expenseListViewModel.selectedCategory = category
+        highlightCategory(category)
+    }
+
+    private fun highlightCategory(category: String) {
+        // Clear previous selection styles
+        categoriesContainer.children.forEach { it.isSelected = false }
+
+        // Find and highlight the matching view
+        categoriesContainer.children
+            .filterIsInstance<TextView>()
+            .firstOrNull { it.text.toString() == category }
+            ?.isSelected = true
     }
 
     private fun openInGallery(uri: Uri) {
@@ -241,6 +281,11 @@ class ExpenseDetailsFragment : Fragment() {
 
                             // Submit your expenses to adapter here
                             adapter.updateList(state.data)
+
+                            // Check if selectedDate is today, then show Toast
+                            if (isSelectedDateToday()) {
+                                ExpenseUtils.TOTAL_AMOUNT_TODAY = ExpenseUtils.sumExpenseAmounts(state.data)
+                            }
                         }
                     }
                 }
@@ -265,20 +310,21 @@ class ExpenseDetailsFragment : Fragment() {
                     }
 
                     is UiState.Success -> {
-                        val totalItems = state.data.totalItems
-                        val totalAmount = state.data.totalAmount
-
-                        // Store values in the object
-                        ExpenseConstants.TOTAL_ITEMS = totalItems.toString()
-                        ExpenseConstants.TOTAL_AMOUNT = "₹$totalAmount"
-
                         // Display values
-                        binding.totalItemsValue.text = ExpenseConstants.TOTAL_ITEMS
-                        binding.totalAmountValue.text = ExpenseConstants.TOTAL_AMOUNT
+                        binding.totalItemsValue.text = state.data.totalItems.toString()
+                        binding.totalAmountValue.text = "₹${state.data.totalAmount}"
                     }
                 }
             }
         }
+    }
+
+    private fun isSelectedDateToday(): Boolean {
+        val todayCal = Calendar.getInstance()  // current date/time
+        val selectedCal = Calendar.getInstance().apply { time = selectedDate }
+
+        return todayCal.get(Calendar.YEAR) == selectedCal.get(Calendar.YEAR) &&
+                todayCal.get(Calendar.DAY_OF_YEAR) == selectedCal.get(Calendar.DAY_OF_YEAR)
     }
 
 

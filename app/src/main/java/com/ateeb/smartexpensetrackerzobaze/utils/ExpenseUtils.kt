@@ -3,9 +3,8 @@ package com.ateeb.smartexpensetrackerzobaze.utils
 import com.ateeb.smartexpensetrackerzobaze.domain.model.Expense
 import java.util.Calendar
 
-object ExpenseConstants {
-    var TOTAL_ITEMS = "total_items"
-    var TOTAL_AMOUNT = "total_amount"
+object ExpenseUtils {
+    var TOTAL_AMOUNT_TODAY: Double = 0.0
 
     fun getMockExpenseData(): List<Expense> {
         val calendar = Calendar.getInstance()
@@ -263,5 +262,8 @@ object ExpenseConstants {
         )
     }
 
+    fun sumExpenseAmounts(expenses: List<Expense>): Double {
+        return expenses.sumOf { it.amount }
+    }
 
 }
