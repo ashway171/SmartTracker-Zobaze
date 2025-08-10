@@ -11,4 +11,17 @@
     <color name="category_selected_background">#E3F2FD</color>
     <color name="category_selected_text">#1976D2</color>
 
+    <color name="category_icon_color">#757575</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="amount_color">#2E7D32</color>
+    <color name="chart_bar_color">#1976D2</color>
+    <color name="chart_text_color">#424242</color>
+
+    <!-- Individual category colors -->
+    <color name="category_staff">#FF6B6B</color>
+    <color name="category_travel">#4ECDC4</color>
+    <color name="category_food">#45B7D1</color>
+    <color name="category_utility">#96CEB4</color>
+
 </resources>
