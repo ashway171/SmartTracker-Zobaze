@@ -8,7 +8,8 @@ SmartTracker is a lightweight app designed to support small business owners in d
 
 - [Key Components](#key-components)  
 - [Screenshots](#screenshots)  
-- [Salient Technicalities](#salient-technicalities)  
+- [AI Usage Summary](#ai-usage-summary)  
+- [Salient Technicalities](#salient-technicalities)
 
 ---
 
