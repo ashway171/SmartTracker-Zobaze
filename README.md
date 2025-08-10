@@ -49,6 +49,12 @@ SmartTracker is a lightweight app designed to support small business owners in d
 
 ---
 
+## AI Usage Summary
+
+AI was primarily utilized to optimize UI layouts by reducing view hierarchy complexity through ConstraintLayout flattening, streamlining SQL query implementation for efficient data retrieval, facilitating dependency injection of complex objects using Dagger2, and enhancing the domain layer’s design to ensure seamless interoperability with both data and presentation layers.
+
+---
+
 ## Salient Technicalities
 
 1. **ViewModels and Domain Layer** are free from `android.jar` imports, ensuring they are unit-test compliant and easily testable without Android framework dependencies.
